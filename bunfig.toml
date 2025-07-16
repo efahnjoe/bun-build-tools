@@ -1,0 +1,25 @@
+[install]
+optional = true
+dev = true
+peer = true
+production = false
+exact = false                           # 是否在package.json中设置精确的版本。
+auto = "auto"
+registry = "https://registry.npmjs.org"
+
+[install.lockfile]
+save = true
+
+[dependencies]
+
+[run]
+shell = "system" # default outside of Windows
+
+[build]
+minify = true
+target = "esnext"
+
+[test]
+root = "./__tests__"
+coverage = true      # 启用覆盖率报告
+# coverageThreshold = 0.9 #指定覆盖率阈值
