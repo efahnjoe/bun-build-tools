@@ -23,12 +23,14 @@ const buildPackage = async (mode: string, packageDir: string, outDir: string, co
     throw new Error(`Invalid mode: ${mode}`);
   }
 
-  const entrypoints = fg.sync(["**/*.ts", "!**/node_modules/**", "!**/*.d.ts"]);
+  const entrypoints = fg.sync(["**/*.ts", "!**/node_modules/**", "!**/*.d.ts"], { cwd: packageDir, });
 
   if (entrypoints.length === 0) {
     console.error("No .ts files found.");
     process.exit(1);
   }
+
+  const fullEntrypoints = entrypoints.map((file) => join(packageDir, file));
 
   const packageJson = await Bun.file(join(process.cwd(), "package.json")).json();
 
@@ -49,7 +51,7 @@ const buildPackage = async (mode: string, packageDir: string, outDir: string, co
 
   const baseConfig = {
     root: packageDir,
-    entrypoints,
+    entrypoints: fullEntrypoints,
     outdir: outDir,
     naming: "[dir]/[name].mjs",
     splitting: true,

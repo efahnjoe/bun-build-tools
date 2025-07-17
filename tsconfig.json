@@ -10,7 +10,7 @@
     "allowJs": false,
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
-    "noEmit": true,
+    "noEmit": false,
     "strict": true,
     "skipLibCheck": true,
     "noFallthroughCasesInSwitch": true,
@@ -20,12 +20,13 @@
     "noUnusedParameters": false,
     "noPropertyAccessFromIndexSignature": false,
     "outDir": "lib",
-    "rootDir": ".",
+    "rootDir": "src",
     "composite": true,
-    "declaration": true
+    "declaration": true,
+    "emitDeclarationOnly": true
   },
   "include": [
-    "lib/**/*.ts"
+    "src/**/*.ts"
   ],
   "exclude": [
     "node_modules",

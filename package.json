@@ -5,9 +5,8 @@
   "license": "MIT",
   "description": "A TypeScript build tool powered by Bun",
   "bin": {
-    "bun-build": "index.ts"
+    "bun-build": "./lib/bun-build"
   },
-  "types": "./lib/index.ts",
   "type": "module",
   "keywords": [
     "bun",
@@ -24,6 +23,9 @@
     "url": "https://github.com/efahnjoe/bun-build-tools/issues"
   },
   "scripts": {
+    "build": "bun build ./src/index.ts --target bun --compile --minify --sourcemap --outfile ./lib/bun-build --format esm --external fast-glob --external path --external minimist",
+    "build:type": "tsc --emitDeclarationOnly --outDir lib",
+    "clean": "rm -rf tsconfig.tsbuildinfo",
     "publish": "npm publish --access public"
   },
   "engines": {
