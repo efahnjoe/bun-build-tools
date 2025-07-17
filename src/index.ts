@@ -1,5 +1,6 @@
-import { bunBuild } from "./build";
+#!/usr/bin/env bun
 import minimist from "minimist";
+import { bunBuild } from "./build";
 
 const showHelp = () => {
   console.log(`
@@ -49,7 +50,6 @@ if (import.meta.main) {
     const outDir = options.out;
     try {
       await bunBuild(mode, packageDir, outDir);
-      // runBuild(mode, packageDir, outDir);
       console.log("Build complete.");
     } catch (error) {
       console.error("Build failed:", error);

@@ -1,3 +1,4 @@
+#!/usr/bin/env bun
 import { build, spawn } from 'bun';
 import fg from 'fast-glob';
 import { join } from 'path';
