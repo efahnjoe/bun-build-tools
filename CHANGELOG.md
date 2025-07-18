@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/efahnjoe/bun-build-tools/compare/v1.2.2...v1.3.0) (2025-07-18)
+
+
+### Features
+
+* **build:** added the --no-tsc option ([db0bc99](https://github.com/efahnjoe/bun-build-tools/commit/db0bc995c8daefd19632cad942abec2be52dfc4f))
+
 ## [1.2.2](https://github.com/efahnjoe/bun-build-tools/compare/v1.2.1...v1.2.2) (2025-07-18)
 
 
