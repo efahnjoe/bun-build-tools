@@ -3,26 +3,6 @@ import minimist from "minimist";
 import { bunBuild } from "./build";
 import type { Options } from './build'
 
-//   format = "esm",
-//   target,
-//   naming = "[dir]/[name].mjs",
-//   splitting = true,
-//   plugins,
-//   external = ["*"],
-//   packages,
-//   publicPath,
-//   loader,
-//   sourcemap = "none",
-//   conditions,
-//   env,
-//   minify = false,
-//   ignoreDCEAnnotations,
-//   emitDCEAnnotations,
-//   bytecode,
-//   banner,
-//   footer,
-//   drop
-
 const showHelp = () => {
   console.log(`
 Usage: bun-build [options]
@@ -49,6 +29,12 @@ Options:
 if (import.meta.main) {
   (async () => {
     const args = process.argv.slice(2);
+
+    if (args.length === 0) {
+      showHelp();
+      process.exit(0);
+    }
+
     const options = minimist(args, {
       boolean: ["lib", "bundle", "tsc", "help"],
       string: ["target", "src", "out", "naming", "format", "splitting", "external", "sourcemap", "minify"],
@@ -65,7 +51,7 @@ if (import.meta.main) {
         external: ["*"],
         sourcemap: "none",
         minify: false,
-        help: true,
+        help: false,
       },
     });
 
