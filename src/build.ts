@@ -231,7 +231,14 @@ export const bunBuild = async (opts: Options) => {
     await cleanDist(opts.out)
     await buildPackage(opts);
 
-    const shouldBuildTsc = opts.mode !== undefined ? !!opts.tsc : !!opts.tsc;
+    let shouldBuildTsc = false;
+    if (opts.mode !== undefined) {
+      // When the mode exists, the execution only occurs if tsc is not false.
+      shouldBuildTsc = opts.tsc !== false;
+    } else {
+      // When the mode does not exist, it completely depends on the value of tsc.
+      shouldBuildTsc = !!opts.tsc;
+    }
 
     if (shouldBuildTsc) {
       await buildTsc(opts.src, opts.out);

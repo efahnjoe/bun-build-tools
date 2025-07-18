@@ -16,7 +16,7 @@ Options:
   --target         The intended execution environment for the bundle (default: "bun")
   --src,           Package directory (default: "./src")
   --out,           Output directory (default: "./out")
-  --tsc,           Use TypeScript (default: false)
+  --no-tsc         Disable TypeScript (default: enabled)
   --naming,        Customizes the generated file names (default: "[dir]/[name].mjs")
   --format         Specifies the module format to be used in the generated bundles (default: "esm")
   --splitting,     Whether to enable code splitting (default: true)
@@ -36,7 +36,7 @@ if (import.meta.main) {
     }
 
     const options = minimist(args, {
-      boolean: ["lib", "bundle", "tsc", "help"],
+      boolean: ["lib", "bundle", "tsc", "notsc", "help"],
       string: ["target", "src", "out", "naming", "format", "splitting", "external", "sourcemap", "minify"],
       default: {
         lib: false,
@@ -44,7 +44,7 @@ if (import.meta.main) {
         target: "bun",
         src: "src",
         out: "out",
-        tsc: false,
+        tsc: true,
         naming: "[dir]/[name].mjs",
         format: "esm",
         splitting: true,
@@ -60,14 +60,11 @@ if (import.meta.main) {
       process.exit(0);
     }
 
-    let mode: "lib" | "bundle" | undefined;
-    if (options.lib) {
-      mode = "lib" as const;
-    } else if (options.bundle) {
-      mode = "bundle" as const;
-    } else {
-      mode = void 0;
+    if (options.lib && options.bundle) {
+      throw new Error("Cannot specify both lib and bundle options");
     }
+
+    const mode = options.lib ? "lib" : options.bundle ? "bundle" : undefined;
 
     const opts: Options = {
       mode,

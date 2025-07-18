@@ -176,7 +176,7 @@ export interface Options {
 --out,           Output directory (default: "./out")
 
 # Optional Features
---tsc,           Use TypeScript (default: false)
+--no-tsc         Disable TypeScript (default: enabled)
 --naming,        Customizes the generated file names (default: "[dir]/[name].mjs")
 --format         Specifies the module format to be used in the generated bundles (default: "esm")
 --splitting,     Whether to enable code splitting (default: true)
@@ -191,7 +191,9 @@ build-tool --src ./src --out ./dist
 
 build-tool --bundle --minify --out ./build
 
-build-tool --naming "[name]-[hash].js" --sourcemap file
+build-tool --naming "[name]-[hash].js" --sourcemap inline
+
+build-tool --lib --no-tsc
 ```
 
 
