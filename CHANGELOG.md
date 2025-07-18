@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.2](https://github.com/efahnjoe/bun-build-tools/compare/v1.2.1...v1.2.2) (2025-07-18)
+
+
+### Bug Fixes
+
+* **tsc:** correct TypeScript build condition logic ([7fd4afb](https://github.com/efahnjoe/bun-build-tools/commit/7fd4afb88452f86c392eac2477f19adb52213173))
+
 ## [1.2.1](https://github.com/efahnjoe/bun-build-tools/compare/v1.2.0...v1.2.1) (2025-07-18)
 
 
