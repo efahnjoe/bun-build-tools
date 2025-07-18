@@ -1,17 +1,48 @@
 #!/usr/bin/env bun
 import minimist from "minimist";
 import { bunBuild } from "./build";
+import type { Options } from './build'
+
+//   format = "esm",
+//   target,
+//   naming = "[dir]/[name].mjs",
+//   splitting = true,
+//   plugins,
+//   external = ["*"],
+//   packages,
+//   publicPath,
+//   loader,
+//   sourcemap = "none",
+//   conditions,
+//   env,
+//   minify = false,
+//   ignoreDCEAnnotations,
+//   emitDCEAnnotations,
+//   bytecode,
+//   banner,
+//   footer,
+//   drop
 
 const showHelp = () => {
   console.log(`
-Usage: bun-build [--lib | --bundle] [options]
+Usage: bun-build [options]
+See: https://github.com/efahnjoe/bun-build-tools#readme
+Bun Api: https://bun.com/docs/bundler
 
 Options:
   --help           Show this help message
   --lib            Build in library mode (default)
   --bundle         Build in bundle mode
+  --target         The intended execution environment for the bundle (default: "bun")
   --src,           Package directory (default: "./src")
   --out,           Output directory (default: "./out")
+  --tsc,           Use TypeScript (default: false)
+  --naming,        Customizes the generated file names (default: "[dir]/[name].mjs")
+  --format         Specifies the module format to be used in the generated bundles (default: "esm")
+  --splitting,     Whether to enable code splitting (default: true)
+  --external,      External dependencies (default: ["*"])
+  --sourcemap,     Specifies the type of sourcemap to generate (default: none)
+  --minify,        Whether to enable minification (default: false)
 `);
 }
 
@@ -19,14 +50,22 @@ if (import.meta.main) {
   (async () => {
     const args = process.argv.slice(2);
     const options = minimist(args, {
-      boolean: ["lib", "bundle", "help"],
-      string: ["src", "out"],
+      boolean: ["lib", "bundle", "tsc", "help"],
+      string: ["target", "src", "out", "naming", "format", "splitting", "external", "sourcemap", "minify"],
       default: {
         lib: false,
         bundle: false,
+        target: "bun",
         src: "src",
-        out: "dist",
-        help: false,
+        out: "out",
+        tsc: false,
+        naming: "[dir]/[name].mjs",
+        format: "esm",
+        splitting: true,
+        external: ["*"],
+        sourcemap: "none",
+        minify: false,
+        help: true,
       },
     });
 
@@ -35,21 +74,31 @@ if (import.meta.main) {
       process.exit(0);
     }
 
-    let mode: string;
+    let mode: "lib" | "bundle" | undefined;
     if (options.lib) {
-      mode = "lib";
+      mode = "lib" as const;
     } else if (options.bundle) {
-      mode = "bundle";
+      mode = "bundle" as const;
     } else {
-      console.error("Please specify either --lib or --bundle");
-      showHelp();
-      process.exit(1);
+      mode = void 0;
     }
 
-    const packageDir = options.src;
-    const outDir = options.out;
+    const opts: Options = {
+      mode,
+      src: options.src,
+      out: options.out,
+      tsc: options.tsc,
+      target: options.target,
+      naming: options.naming,
+      format: options.format,
+      splitting: options.splitting,
+      external: options.external,
+      sourcemap: options.sourcemap,
+      minify: options.minify
+    }
+
     try {
-      await bunBuild(mode, packageDir, outDir);
+      await bunBuild(opts);
       console.log("Build complete.");
     } catch (error) {
       console.error("Build failed:", error);
@@ -57,3 +106,5 @@ if (import.meta.main) {
     }
   })();
 }
+
+export default bunBuild;

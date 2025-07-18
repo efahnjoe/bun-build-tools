@@ -38,13 +38,13 @@ Equivalent to:
 ```bash
 rm -rf ./out
 
-bun build --entrypoints ./index.ts /
- --outdir ./out /
- --entry-naming [dir]/[name].mjs /
- --format esm /
- --splitting /
- --target node /
- --sourcemap=none /
+bun build --entrypoints ./index.ts \
+ --outdir ./out \
+ --entry-naming [dir]/[name].mjs \
+ --format esm \
+ --splitting \
+ --target node \
+ --sourcemap=none \
 
 tsc --emitDeclarationOnly --outDir ./out
 ```
@@ -62,18 +62,138 @@ Equivalent to:
 ```bash
 rm -rf ./out
 
-bun build --entrypoints ./index.ts /
- ---outdir ./out /
- --outfile ./out/bundle.mjs /
- --entry-naming [dir]/[name].mjs /
- --format esm /
- --minify /
- --splitting /
- --target browser /
- --sourcemap=none /
+bun build --entrypoints ./index.ts \
+ ---outdir ./out \
+ --outfile ./out/bundle.mjs \
+ --entry-naming [dir]/[name].mjs \
+ --format esm \
+ --minify \
+ --splitting \
+ --target browser \
+ --sourcemap=none \
 
 tsc --emitDeclarationOnly --outDir ./out
 ```
+
+## Options
+Even if the `lib` and `bundle` options are enabled, the default values can still be overridden.
+
+Compatible with most Bun api.
+
+```typescript
+/**
+ * Build configuration options
+ * 
+ * Note: CLI flags override default values when provided.
+ * Compatible with most Bun build APIs.
+ */
+export interface Options {
+  /** Build mode (not exposed in CLI) */
+  mode?: "lib" | "bundle";
+  /** 
+   * Library mode (default: true)
+   * @flag --lib
+   */
+  lib?: boolean;
+  /** 
+   * Bundle mode (default: false)
+   * @flag --bundle
+   */
+  bundle?: boolean;
+  /** 
+   * Target execution environment
+   * @default "bun"
+   * @flag --target
+   */
+  target?: "node" | "bun" | "browser";
+  /** 
+   * Source directory
+   * @default "./src"
+   * @flag --src
+   */
+  src: string;
+  /** 
+   * Output directory
+   * @default "./out"
+   * @flag --out
+   */
+  out: string;
+  /** 
+   * Enable TypeScript compilation
+   * @default false
+   * @flag --tsc
+   */
+  tsc?: boolean;
+  /** 
+   * Output filename pattern
+   * @default "[dir]/[name].mjs"
+   * @flag --naming
+   */
+  naming?: string;
+  /** 
+   * Module format
+   * @default "esm"
+   * @flag --format
+   */
+  format?: "esm" | "cjs" | "iife";
+  /** 
+   * Enable code splitting
+   * @default true
+   * @flag --splitting
+   */
+  splitting?: boolean;
+  /** 
+   * External dependencies
+   * @default ["*"]
+   * @flag --external
+   */
+  external?: string[];
+  /** 
+   * Sourcemap generation type
+   * @default "none"
+   * @flag --sourcemap
+   */
+  sourcemap?: boolean | "external" | "none" | "linked" | "inline";
+  /** 
+   * Enable minification
+   * @default false
+   * @flag --minify
+   */
+  minify?: boolean;
+}
+```
+
+```bash
+--help           Show this help message
+
+# Build Modes (mutually exclusive)
+--lib            Build in library mode (default)
+--bundle         Build in bundle mode
+
+# Core Configuration
+--target         The intended execution environment for the bundle (default: "bun")
+--src,           Package directory (default: "./src")
+--out,           Output directory (default: "./out")
+
+# Optional Features
+--tsc,           Use TypeScript (default: false)
+--naming,        Customizes the generated file names (default: "[dir]/[name].mjs")
+--format         Specifies the module format to be used in the generated bundles (default: "esm")
+--splitting,     Whether to enable code splitting (default: true)
+--external,      External dependencies (default: ["*"])
+--sourcemap,     Specifies the type of sourcemap to generate (default: none)
+--minify,        Whether to enable minification (default: false)
+```
+
+**example:**
+```bash
+build-tool --src ./src --out ./dist
+
+build-tool --bundle --minify --out ./build
+
+build-tool --naming "[name]-[hash].js" --sourcemap file
+```
+
 
 ## Features of the Default Configurations
 
