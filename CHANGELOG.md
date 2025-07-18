@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/efahnjoe/bun-build-tools/compare/v1.1.0...v1.2.0) (2025-07-18)
+
+
+### Features
+
+* **build-tools:** enhance configuration options and CLI experience ([f1f99e7](https://github.com/efahnjoe/bun-build-tools/commit/f1f99e78b7f30103ae6ba97a46735cb6ab91e122))
+
 ## [1.1.0](https://github.com/efahnjoe/bun-build-tools/compare/v1.0.1...v1.1.0) (2025-07-17)
 
 
