@@ -230,7 +230,12 @@ export const bunBuild = async (opts: Options) => {
   try {
     await cleanDist(opts.out)
     await buildPackage(opts);
-    if (opts.tsc) await buildTsc(opts.src, opts.out);
+
+    const shouldBuildTsc = opts.mode !== undefined ? !!opts.tsc : !!opts.tsc;
+
+    if (shouldBuildTsc) {
+      await buildTsc(opts.src, opts.out);
+    }
   } catch (error) {
     console.error("Build failed:", error);
     process.exit(1);
