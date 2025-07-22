@@ -112,6 +112,11 @@ export interface Options {
    * @flag --src
    */
   src: string;
+    /**
+   * Files to ignore
+   * @flag --ignore
+   */
+  ignore: string[];
   /** 
    * Output directory
    * @default "./out"
@@ -120,7 +125,7 @@ export interface Options {
   out: string;
   /** 
    * Enable TypeScript compilation
-   * @default false
+   * @default true
    * @flag --tsc
    */
   tsc?: boolean;
@@ -173,7 +178,7 @@ export interface Options {
 # Core Configuration
 --target         The intended execution environment for the bundle (default: "bun")
 --src,           Package directory (default: "./src")
---ignore         Ignore files and directories (default: [])
+--ignore         Ignore files and directories
 --out,           Output directory (default: "./out")
 
 # Optional Features
@@ -194,7 +199,7 @@ build-tool --bundle --minify --out ./build
 
 build-tool --naming "[name]-[hash].js" --sourcemap inline
 
-build-tool --lib --no-tsc --ignore "./src/ignore.ts" --ignore "./src/types"
+build-tool --lib --no-tsc --ignore '**/types/**.ts' --ignore '**/test/**.ts'
 ```
 
 

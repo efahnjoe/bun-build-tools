@@ -49,7 +49,7 @@ export interface Options {
   out: string;
   /** 
    * Enable TypeScript compilation
-   * @default false
+   * @default true
    * @flag --tsc
    */
   tsc?: boolean;
