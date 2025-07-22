@@ -71,7 +71,7 @@ if (import.meta.main) {
     const opts: Options = {
       mode,
       src: options.src,
-      ignore: [options.ignore],
+      ignore: options.ignore,
       out: options.out,
       tsc: options.tsc,
       target: options.target,

@@ -123,17 +123,14 @@ const buildPackage = async (opts: Options) => {
   if (mode && !["lib", "bundle"].includes(mode)) {
     throw new Error(`Invalid mode: ${mode}`);
   }
-  console.log("ignore: ", ignore);
 
   let ignorePatterns: string[] = [];
-
-  const safeIgnore = Array.isArray(ignore) ? ignore.filter(Boolean) : [];
+  const safeIgnore = Array.isArray(ignore) ? ignore.filter(Boolean) : [ignore];
 
   if (safeIgnore.length > 0) {
     ignorePatterns = ignore.map((pattern) => `!${pattern}`);
-    console.log(`Ignoring patterns: ${ignorePatterns.join(", ")}`);
   }
-  console.log("safeIgnore", safeIgnore);
+
   const patterns = [
     "**/*.ts",
     "!**/node_modules/**",
