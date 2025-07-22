@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.1](https://github.com/efahnjoe/bun-build-tools/compare/v1.4.0...v1.4.1) (2025-07-22)
+
+
+### Bug Fixes
+
+* **cli:** improve handling of --ignore parameter parsing ([826c22d](https://github.com/efahnjoe/bun-build-tools/commit/826c22d87dd39d58b4222d0ad200f684821492a3))
+
 ## [1.4.0](https://github.com/efahnjoe/bun-build-tools/compare/v1.3.0...v1.4.0) (2025-07-22)
 
 
