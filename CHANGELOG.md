@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/efahnjoe/bun-build-tools/compare/v1.3.0...v1.4.0) (2025-07-22)
+
+
+### Features
+
+* **build:** add support for ignoring files and directories ([3f3ac92](https://github.com/efahnjoe/bun-build-tools/commit/3f3ac921214c3ceb20533f246e39f5e3f2cc86fb))
+
 ## [1.3.0](https://github.com/efahnjoe/bun-build-tools/compare/v1.2.2...v1.3.0) (2025-07-18)
 
 
