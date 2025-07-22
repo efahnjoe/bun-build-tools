@@ -36,7 +36,12 @@ export interface Options {
    * @flag --src
    */
   src: string;
-  /** 
+  /**
+   * Files to ignore
+   * @flag --ignore
+   */
+  ignore: string[];
+  /**
    * Output directory
    * @default "./out"
    * @flag --out
@@ -104,6 +109,7 @@ const buildPackage = async (opts: Options) => {
   const {
     mode,
     src = "src",
+    ignore = [],
     out = "out",
     format = "esm",
     target = "bun",
@@ -117,8 +123,25 @@ const buildPackage = async (opts: Options) => {
   if (mode && !["lib", "bundle"].includes(mode)) {
     throw new Error(`Invalid mode: ${mode}`);
   }
+  console.log("ignore: ", ignore);
 
-  const entrypoints = fg.sync(["**/*.ts", "!**/node_modules/**", "!**/*.d.ts"], { cwd: src, });
+  let ignorePatterns: string[] = [];
+
+  const safeIgnore = Array.isArray(ignore) ? ignore.filter(Boolean) : [];
+
+  if (safeIgnore.length > 0) {
+    ignorePatterns = ignore.map((pattern) => `!${pattern}`);
+    console.log(`Ignoring patterns: ${ignorePatterns.join(", ")}`);
+  }
+  console.log("safeIgnore", safeIgnore);
+  const patterns = [
+    "**/*.ts",
+    "!**/node_modules/**",
+    "!**/*.d.ts",
+    ...ignorePatterns,
+  ];
+
+  const entrypoints = fg.sync(patterns, { cwd: src, });
 
   if (entrypoints.length === 0) {
     console.error("No .ts files found.");

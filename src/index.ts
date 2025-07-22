@@ -15,12 +15,13 @@ Options:
   --bundle         Build in bundle mode
   --target         The intended execution environment for the bundle (default: "bun")
   --src,           Package directory (default: "./src")
+  --ignore         Ignore files and directories
   --out,           Output directory (default: "./out")
   --no-tsc         Disable TypeScript (default: enabled)
   --naming,        Customizes the generated file names (default: "[dir]/[name].mjs")
   --format         Specifies the module format to be used in the generated bundles (default: "esm")
   --splitting,     Whether to enable code splitting (default: true)
-  --external,      External dependencies (default: ["*"])
+  --external,      External dependencies (default: "*")
   --sourcemap,     Specifies the type of sourcemap to generate (default: none)
   --minify,        Whether to enable minification (default: false)
 `);
@@ -37,18 +38,19 @@ if (import.meta.main) {
 
     const options = minimist(args, {
       boolean: ["lib", "bundle", "tsc", "notsc", "help"],
-      string: ["target", "src", "out", "naming", "format", "splitting", "external", "sourcemap", "minify"],
+      string: ["target", "src", "ignore", "out", "naming", "format", "splitting", "external", "sourcemap", "minify"],
       default: {
         lib: false,
         bundle: false,
         target: "bun",
         src: "src",
+        ignore: "",
         out: "out",
         tsc: true,
         naming: "[dir]/[name].mjs",
         format: "esm",
         splitting: true,
-        external: ["*"],
+        external: "*",
         sourcemap: "none",
         minify: false,
         help: false,
@@ -69,13 +71,14 @@ if (import.meta.main) {
     const opts: Options = {
       mode,
       src: options.src,
+      ignore: [options.ignore],
       out: options.out,
       tsc: options.tsc,
       target: options.target,
       naming: options.naming,
       format: options.format,
       splitting: options.splitting,
-      external: options.external,
+      external: [options.external],
       sourcemap: options.sourcemap,
       minify: options.minify
     }
