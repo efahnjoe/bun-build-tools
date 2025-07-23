@@ -1,6 +1,6 @@
 {
   "name": "bun-build-tools",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "author": "Efahn Joe",
   "license": "MIT",
   "description": "A TypeScript build tool powered by Bun",
