@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.3](https://github.com/efahnjoe/bun-build-tools/compare/v1.4.2...v1.4.3) (2025-07-23)
+
+
+### Bug Fixes
+
+* remove unnecessary debug logs ([2027175](https://github.com/efahnjoe/bun-build-tools/commit/202717593df3f1f303fa88032e327b1784b89acb))
+
 ## [1.4.2](https://github.com/efahnjoe/bun-build-tools/compare/v1.4.1...v1.4.2) (2025-07-23)
 
 
