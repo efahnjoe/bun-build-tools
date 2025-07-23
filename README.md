@@ -116,7 +116,7 @@ export interface Options {
    * Files to ignore
    * @flag --ignore
    */
-  ignore: string[];
+  ignore?: string | string[] | undefined;
   /** 
    * Output directory
    * @default "./out"

@@ -44,7 +44,7 @@ if (import.meta.main) {
         bundle: false,
         target: "bun",
         src: "src",
-        ignore: "",
+        ignore: undefined,
         out: "out",
         tsc: true,
         naming: "[dir]/[name].mjs",

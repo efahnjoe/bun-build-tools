@@ -40,7 +40,7 @@ export interface Options {
    * Files to ignore
    * @flag --ignore
    */
-  ignore: string[];
+  ignore?: string | string[] | undefined;
   /**
    * Output directory
    * @default "./out"
@@ -109,7 +109,7 @@ const buildPackage = async (opts: Options) => {
   const {
     mode,
     src = "src",
-    ignore = [],
+    ignore = undefined,
     out = "out",
     format = "esm",
     target = "bun",
@@ -125,19 +125,25 @@ const buildPackage = async (opts: Options) => {
   }
 
   let ignorePatterns: string[] = [];
-  const safeIgnore = Array.isArray(ignore) ? ignore.filter(Boolean) : [ignore];
+
+  const safeIgnore: string[] =
+    ignore === undefined
+      ? [] // if ignore is not provided, use an empty array
+      : Array.isArray(ignore)
+        ? ignore.filter((item): item is string => Boolean(item)) // filter out falsy values
+        : [ignore].filter(Boolean); // convert to array if it's a string, then filter out falsy values
 
   if (safeIgnore.length > 0) {
-    ignorePatterns = ignore.map((pattern) => `!${pattern}`);
+    ignorePatterns = safeIgnore.map((pattern) => `!${pattern}`);
   }
 
   const patterns = [
     "**/*.ts",
     "!**/node_modules/**",
     "!**/*.d.ts",
-    ...ignorePatterns,
+    ...ignorePatterns || [],
   ];
-
+  console.log(patterns);
   const entrypoints = fg.sync(patterns, { cwd: src, });
 
   if (entrypoints.length === 0) {
