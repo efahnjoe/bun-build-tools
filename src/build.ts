@@ -143,7 +143,7 @@ const buildPackage = async (opts: Options) => {
     "!**/*.d.ts",
     ...ignorePatterns || [],
   ];
-  console.log(patterns);
+
   const entrypoints = fg.sync(patterns, { cwd: src, });
 
   if (entrypoints.length === 0) {
