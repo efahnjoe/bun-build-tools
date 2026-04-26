@@ -1,5 +1,7 @@
 # Bun build tools
 
+**Package no longer supported.**
+
 **Note: This project is written in TypeScript and only supports the `Bun` runtime environment.**
 
 **Note: We use `tsc` by default to generate `.d.ts` declaration files.**
