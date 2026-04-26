@@ -3,6 +3,7 @@
   "version": "1.4.3",
   "author": "Efahn Joe",
   "license": "MIT",
+  "deprecated": "This package is no longer maintained.",
   "description": "A TypeScript build tool powered by Bun",
   "bin": {
     "bun-build": "./lib/index.js"
